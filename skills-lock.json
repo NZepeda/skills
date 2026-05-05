@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "grill-me": {
+      "source": "nzepeda/skills",
+      "sourceType": "github",
+      "computedHash": "3cab93c4ad9dc00c8f737f80bb37e882c2302bcfa3ede2bd8ec517a39bd58493"
+    }
+  }
+}
