@@ -23,7 +23,7 @@ That installer performs a non-interactive local project install for Codex.
 - `grill-me`: Stress-test a plan or design through a rigorous interview that walks each decision branch to a shared understanding.
 - `write-a-prd`: Create a PRD through user interviews, codebase exploration, and module design, then save it under `./prds/`.
 - `prd-to-plan`: Turn an existing PRD into a phased implementation plan using tracer-bullet vertical slices, written to `./plans/`.
-- `feature-owner`: Orchestrate a feature end-to-end with minimal user input, pausing at design and technical approval gates.
+- `feature-owner`: Orchestrate a feature end-to-end with minimal user input, but require explicit approval before kickoff, technical planning, and implementation.
 - `feature-intake`: Normalize a rough feature request into a structured feature brief.
 - `design-brief-generator`: Turn a feature brief into a design review artifact with flows, states, and open questions.
 - `tech-spec-generator`: Turn an approved brief and design direction into a technical proposal with tradeoffs.
@@ -46,9 +46,11 @@ The feature automation skills are meant to be composed in this order:
 The intended operating model is:
 
 - You describe the feature once.
+- `feature-owner` asks for explicit approval before starting the workflow.
 - The workflow creates `./docs/features/<feature-slug>/`.
-- You approve the design direction.
-- You approve the technical shape.
+- You explicitly approve the design direction.
+- You explicitly approve the technical shape.
+- You explicitly approve implementation before any code work starts.
 - The remaining work proceeds one reviewable chunk at a time.
 
 If you want the whole workflow available in a target project, use the installer script above. It installs:
