@@ -2,19 +2,17 @@
 
 set -euo pipefail
 
-skills=(
-  feature-owner
-  feature-intake
-  design-brief-generator
-  tech-spec-generator
-  implementation-planner
-  pr-executor
-  review-guard
-)
+echo "Installing feature suite for Codex in the current project..."
 
-for skill in "${skills[@]}"; do
-  echo "Installing ${skill}..."
-  npx skills@latest add "nzepeda/skills/${skill}"
-done
+npx skills@latest add nzepeda/skills \
+  --skill feature-owner \
+  --skill feature-intake \
+  --skill design-brief-generator \
+  --skill tech-spec-generator \
+  --skill implementation-planner \
+  --skill pr-executor \
+  --skill review-guard \
+  --agent codex \
+  --yes
 
 echo "Feature suite installed."

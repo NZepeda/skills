@@ -16,6 +16,8 @@ Install the full feature workflow into another repo with one command:
 curl -fsSL https://raw.githubusercontent.com/nzepeda/skills/main/scripts/install-feature-suite.sh | bash
 ```
 
+That installer performs a non-interactive local project install for Codex.
+
 ## Skills
 
 - `grill-me`: Stress-test a plan or design through a rigorous interview that walks each decision branch to a shared understanding.
@@ -58,3 +60,18 @@ If you want the whole workflow available in a target project, use the installer 
 - `implementation-planner`
 - `pr-executor`
 - `review-guard`
+
+Equivalent direct command:
+
+```bash
+npx skills@latest add nzepeda/skills \
+  --skill feature-owner \
+  --skill feature-intake \
+  --skill design-brief-generator \
+  --skill tech-spec-generator \
+  --skill implementation-planner \
+  --skill pr-executor \
+  --skill review-guard \
+  --agent codex \
+  --yes
+```
