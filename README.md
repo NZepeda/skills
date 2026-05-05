@@ -10,6 +10,12 @@ Install any skill from this repo into another repo with:
 npx skills@latest nzepeda/skills/{skill-name}
 ```
 
+Install the full feature workflow into another repo with one command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nzepeda/skills/main/scripts/install-feature-suite.sh | bash
+```
+
 ## Skills
 
 - `grill-me`: Stress-test a plan or design through a rigorous interview that walks each decision branch to a shared understanding.
@@ -42,3 +48,13 @@ The intended operating model is:
 - You approve the design direction.
 - You approve the technical shape.
 - The remaining work proceeds one reviewable chunk at a time.
+
+If you want the whole workflow available in a target project, use the installer script above. It installs:
+
+- `feature-owner`
+- `feature-intake`
+- `design-brief-generator`
+- `tech-spec-generator`
+- `implementation-planner`
+- `pr-executor`
+- `review-guard`
