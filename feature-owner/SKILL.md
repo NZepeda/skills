@@ -1,11 +1,11 @@
 ---
 name: feature-owner
-description: Orchestrate a new feature from request to implementation by creating a feature workspace, generating design and technical proposals, and stopping for explicit user approval before kickoff, before technical planning, and before implementation. Use when the user wants a feature built end-to-end with minimal input after an initial description.
+description: Orchestrate a new feature from request to implementation by first grilling the user to reach a shared understanding, then creating a feature workspace, generating design and technical proposals, and stopping for explicit user approval before kickoff, before technical planning, and before implementation. Use when the user wants a feature built end-to-end with minimal input after an initial description.
 ---
 
 # Feature Owner
 
-This skill coordinates a feature workflow. It must never treat silence, implication, or positive sentiment as approval.
+This skill coordinates a feature workflow. It must first establish a mutual shared understanding of the feature, and it must never treat silence, implication, or positive sentiment as approval.
 
 ## Workflow contract
 
@@ -19,12 +19,14 @@ Create a feature workspace under `./docs/features/<feature-slug>/` with:
 
 If the folder already exists, resume from `status.yaml` instead of restarting.
 
-Before starting any workflow work, obtain explicit user approval to begin. A feature request alone is not approval to start.
+Before starting any workflow work, use `grill-me` to clarify the feature request, resolve outstanding questions, and reach a shared understanding. After that, obtain explicit user approval to begin. A feature request alone is not approval to start.
 
 ## State machine
 
 Track one of these states in `status.yaml`:
 
+- `clarifying-request`
+- `awaiting-shared-understanding-approval`
 - `awaiting-kickoff-approval`
 - `drafting-brief`
 - `awaiting-design-approval`
@@ -41,6 +43,7 @@ Also track:
 
 - `feature`
 - `slug`
+- `shared_understanding_summary`
 - `current_chunk`
 - `completed_chunks`
 - `open_questions`
@@ -48,33 +51,37 @@ Also track:
 
 ## Process
 
-1. Ask whether the user wants to start the workflow now. Set state to `awaiting-kickoff-approval`.
-2. Only after explicit approval, normalize the request with `feature-intake` and write `brief.md`.
-3. Generate `design.md` with `design-brief-generator`.
-4. Pause and ask for explicit design approval or edits. Update state to `awaiting-design-approval`.
-5. Only after explicit design approval, generate `tech-spec.md` with `tech-spec-generator`.
-6. Pause and ask for explicit technical approval or edits. Update state to `awaiting-tech-approval`.
-7. Only after explicit technical approval, generate `plan.md` with `implementation-planner`.
-8. Pause and ask for explicit approval to begin implementation. Update state to `awaiting-implementation-approval`.
-9. Only after explicit implementation approval, implement one reviewable chunk at a time with `pr-executor`.
-10. Run `review-guard` on each chunk before considering it complete.
-11. Update `status.yaml` after every stage transition.
+1. Begin in `clarifying-request` and use `grill-me` to interview the user until the feature behavior, constraints, and expected outcomes are clear.
+2. Summarize the shared understanding and ask for explicit approval that the summary is correct. Set state to `awaiting-shared-understanding-approval`.
+3. Only after explicit approval of the shared understanding, ask whether the user wants to start the workflow now. Set state to `awaiting-kickoff-approval`.
+4. Only after explicit kickoff approval, normalize the request with `feature-intake` and write `brief.md`.
+5. Generate `design.md` with `design-brief-generator`.
+6. Pause and ask for explicit design approval or edits. Update state to `awaiting-design-approval`.
+7. Only after explicit design approval, generate `tech-spec.md` with `tech-spec-generator`.
+8. Pause and ask for explicit technical approval or edits. Update state to `awaiting-tech-approval`.
+9. Only after explicit technical approval, generate `plan.md` with `implementation-planner`.
+10. Pause and ask for explicit approval to begin implementation. Update state to `awaiting-implementation-approval`.
+11. Only after explicit implementation approval, implement one reviewable chunk at a time with `pr-executor`.
+12. Run `review-guard` on each chunk before considering it complete.
+13. Update `status.yaml` after every stage transition.
 
 ## Operating rules
 
 - Do not ask broad, open-ended questions when a reasonable default exists.
-- Do not skip the kickoff, design, technical, or implementation approval gates.
+- Do not skip the clarification, shared-understanding, kickoff, design, technical, or implementation gates.
 - Ask only for concrete decisions, not for restating prior context.
 - Keep implementation chunks small enough to be comfortably reviewable in a single PR.
 - Prefer existing repo patterns over inventing new abstractions.
 - If ambiguity is minor, document the assumption in the artifact and continue.
 - If ambiguity materially changes UX or architecture, stop and ask.
 - Never infer approval from phrases like "looks good", "continue", or "sounds fine" unless the user is explicitly approving the named gate.
+- Do not create workflow artifacts until the shared-understanding summary has been explicitly approved.
 
 ## Explicit approval policy
 
 Accept approval only when the user clearly approves the specific gate, for example:
 
+- `I approve this shared understanding.`
 - `I approve starting the workflow.`
 - `I approve the design direction.`
 - `I approve the technical approach.`
@@ -83,6 +90,13 @@ Accept approval only when the user clearly approves the specific gate, for examp
 If approval is ambiguous, ask for a clearer yes/no decision and do not proceed.
 
 ## Approval prompts
+
+At the shared-understanding gate, present:
+
+- the clarified feature summary
+- the key decisions that were resolved during grilling
+- any assumptions that remain
+- a direct request for approval that this understanding is correct
 
 At the kickoff gate, present:
 
