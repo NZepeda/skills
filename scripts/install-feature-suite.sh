@@ -14,7 +14,7 @@ skills=(
 
 for skill in "${skills[@]}"; do
   echo "Installing ${skill}..."
-  npx skills@latest "nzepeda/skills/${skill}"
+  npx skills@latest add "nzepeda/skills/${skill}"
 done
 
 echo "Feature suite installed."
