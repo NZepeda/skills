@@ -56,6 +56,8 @@ The intended operating model is:
 - You explicitly approve implementation before any code work starts.
 - The remaining work proceeds one reviewable chunk at a time.
 
+`feature-owner` is intended to act as the orchestrator agent. The stage skills can be executed by delegated sub-agents, but only `feature-owner` should own workflow state and approval-gate transitions.
+
 If you want the whole workflow available in a target project, use the installer script above. It installs:
 
 - `grill-me`
