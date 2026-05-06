@@ -35,6 +35,8 @@ Use sub-agents to keep stages independent and narrow:
 - Use one `worker` sub-agent per implementation chunk.
 - Use a review-focused sub-agent for a `review-guard` pass on each chunk.
 
+For `tech-spec.md`, the drafting task must use three explicit perspectives: software architect, principal engineer, and product engineer. Those perspectives should challenge one another before the orchestrator accepts a recommendation.
+
 Keep delegation narrow. Each sub-agent should receive one clearly bounded task and return one concrete output.
 
 ## Workflow contract

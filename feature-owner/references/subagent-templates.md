@@ -36,6 +36,26 @@ Task template:
 Draft the requested artifact based on the approved workflow inputs and current repo patterns. Keep the artifact concise, concrete, and aligned with the current stage. Return the proposed artifact content and any narrow unresolved questions. Do not update workflow state.
 ```
 
+### Tech-spec variant
+
+When drafting `tech-spec.md`, use this stronger template:
+
+```text
+Draft the tech spec from three perspectives on the same problem:
+1. software architect
+2. principal engineer
+3. product engineer
+
+Have these perspectives explicitly challenge each other on boundaries, risk, speed, complexity, and scalability. Do not produce three isolated mini-specs. Produce one debated proposal that includes:
+- each perspective's main concerns
+- the core disagreements
+- the tradeoffs surfaced by the debate
+- the agreed recommended solution
+- the main alternative that was seriously considered
+
+Balance delivery speed with technical robustness and future scale. Keep the result grounded in the current repo patterns and constraints. Do not update workflow state.
+```
+
 ## Implementation worker
 
 Use one worker per chunk.
