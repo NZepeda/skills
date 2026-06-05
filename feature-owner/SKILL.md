@@ -7,7 +7,7 @@ description: Orchestrate a new feature from request to implementation by first g
 
 This skill coordinates a feature workflow. It must first establish a mutual shared understanding of the feature, and it must never treat silence, implication, or positive sentiment as approval.
 
-This is an orchestrator skill. Its primary job is to manage workflow state and delegate bounded tasks to sub-agents. Load the references below as needed:
+This is an orchestrator skill. Its primary job is to manage workflow state and delegate bounded tasks through the agent runtime's available subagent or task facilities when supported. If delegation is not available, perform the bounded task directly while preserving the same ownership and approval rules. Load the references below as needed:
 
 - `references/status-schema.md` for the `status.yaml` contract
 - `references/subagent-templates.md` for delegation templates
@@ -19,25 +19,25 @@ The orchestrator owns:
 1. reading and updating `status.yaml`
 2. deciding the current workflow state
 3. selecting the next bounded task
-4. delegating that task to the right sub-agent
-5. integrating sub-agent outputs into workflow artifacts
+4. delegating that task when the runtime supports it
+5. integrating delegated task outputs into workflow artifacts
 6. enforcing all approval gates
 
-The orchestrator does not hand off ownership of workflow state. Sub-agents may draft artifacts, explore the repo, review a chunk, or implement a bounded change, but they do not decide state transitions.
+The orchestrator does not hand off ownership of workflow state. Delegated workers may draft artifacts, explore the repo, review a chunk, or implement a bounded change, but they do not decide state transitions.
 
 ## Delegation model
 
-Use sub-agents to keep stages independent and narrow:
+Use available subagent or task facilities to keep stages independent and narrow. If the active runtime cannot delegate, perform each bounded task directly:
 
 - Use `grill-me` behavior first to clarify the request and produce a shared-understanding summary.
-- Use an `explorer` sub-agent for repo discovery, prior art, and integration-point lookup.
-- Use a drafting sub-agent for `brief.md`, `design.md`, `tech-spec.md`, and `plan.md`.
-- Use one `worker` sub-agent per implementation chunk.
-- Use a review-focused sub-agent for a `review-guard` pass on each chunk.
+- Use an `explorer` task for repo discovery, prior art, and integration-point lookup.
+- Use a drafting task for `brief.md`, `design.md`, `tech-spec.md`, and `plan.md`.
+- Use one `worker` task per implementation chunk.
+- Use a review-focused task for a `review-guard` pass on each chunk.
 
 For `tech-spec.md`, the drafting task must use three explicit perspectives: software architect, principal engineer, and product engineer. Those perspectives should challenge one another before the orchestrator accepts a recommendation.
 
-Keep delegation narrow. Each sub-agent should receive one clearly bounded task and return one concrete output.
+Keep delegation narrow. Each delegated task should receive one clearly bounded task and return one concrete output.
 
 ## Workflow contract
 
@@ -105,8 +105,8 @@ For every state transition:
 
 1. Read `status.yaml`.
 2. Decide the next state locally in the orchestrator.
-3. Spawn or reuse exactly one sub-agent for the next bounded task unless independent exploration can safely run in parallel.
-4. Give the sub-agent only the context needed for that task.
+3. Spawn, reuse, or perform exactly one bounded task unless independent exploration can safely run in parallel.
+4. Give any delegated task only the context needed for that task.
 5. Review the output in the orchestrator.
 6. Write or update the relevant artifact.
 7. Update `status.yaml`.
@@ -117,7 +117,7 @@ For every state transition:
 - Parallelize only independent exploration work or independent implementation chunks with disjoint write scopes.
 - Do not run parallel workers that touch the same files or modules.
 - Do not parallelize across approval gates.
-- Do not let a sub-agent update `status.yaml`.
+- Do not let a delegated task update `status.yaml`.
 
 ## Operating rules
 
@@ -130,8 +130,8 @@ For every state transition:
 - If ambiguity materially changes UX or architecture, stop and ask.
 - Never infer approval from phrases like "looks good", "continue", or "sounds fine" unless the user is explicitly approving the named gate.
 - Do not create workflow artifacts until the shared-understanding summary has been explicitly approved.
-- Do not let sub-agents mutate workflow state or change the active plan on their own.
-- If a sub-agent discovers a blocker or ambiguity, return control to the orchestrator for the decision.
+- Do not let delegated tasks mutate workflow state or change the active plan on their own.
+- If a delegated task discovers a blocker or ambiguity, return control to the orchestrator for the decision.
 
 ## Resume protocol
 

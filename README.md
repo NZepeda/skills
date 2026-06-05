@@ -16,7 +16,16 @@ Install the full feature workflow into another repo with one command:
 curl -fsSL https://raw.githubusercontent.com/nzepeda/skills/main/scripts/install-feature-suite.sh | bash
 ```
 
-That installer performs a non-interactive local project install for Codex.
+That installer performs a non-interactive local project install for Codex by default. To install for Claude, pass `claude`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nzepeda/skills/main/scripts/install-feature-suite.sh | bash -s -- claude
+```
+
+Manual project install paths:
+
+- Codex: `.agents/skills/<skill-name>/SKILL.md`
+- Claude: `.claude/skills/<skill-name>/SKILL.md`
 
 ## Skills
 
@@ -56,7 +65,7 @@ The intended operating model is:
 - You explicitly approve implementation before any code work starts.
 - The remaining work proceeds one reviewable chunk at a time.
 
-`feature-owner` is intended to act as the orchestrator agent. The stage skills can be executed by delegated sub-agents, but only `feature-owner` should own workflow state and approval-gate transitions.
+`feature-owner` is intended to act as the orchestrator agent. The stage skills can be delegated through the agent runtime's available subagent or task facilities when supported, but only `feature-owner` should own workflow state and approval-gate transitions.
 
 If you want the whole workflow available in a target project, use the installer script above. It installs:
 
@@ -84,3 +93,5 @@ npx skills@latest add nzepeda/skills \
   --agent codex \
   --yes
 ```
+
+For Claude, use the same command with `--agent claude`.

@@ -2,7 +2,9 @@
 
 set -euo pipefail
 
-echo "Installing feature suite for Codex in the current project..."
+AGENT="${1:-codex}"
+
+echo "Installing feature suite for ${AGENT} in the current project..."
 
 npx skills@latest add nzepeda/skills \
   --skill grill-me \
@@ -13,7 +15,7 @@ npx skills@latest add nzepeda/skills \
   --skill implementation-planner \
   --skill pr-executor \
   --skill review-guard \
-  --agent codex \
+  --agent "$AGENT" \
   --yes
 
 echo "Feature suite installed."
