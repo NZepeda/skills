@@ -1,9 +1,9 @@
 ---
-name: review-guard
+name: code-reviewer
 description: Review a proposed feature chunk for scope, correctness, rollout risk, and missing tests before it is considered complete. Use when a PR-sized change needs a focused reviewability and risk pass.
 ---
 
-# Review Guard
+# Code Reviewer
 
 Review the current chunk with a code-review mindset.
 
@@ -22,4 +22,3 @@ Review the current chunk with a code-review mindset.
 3. Report findings first, ordered by severity.
 4. If no findings exist, say so explicitly and mention residual risk areas.
 5. If the chunk is too large to review comfortably, recommend a split before more work is added.
-

@@ -1,9 +1,9 @@
 ---
-name: feature-intake
+name: feature-to-brief
 description: Turn a raw feature request into a structured feature brief with problem, goals, constraints, acceptance criteria, assumptions, risks, and open questions. Use when a feature request needs to be normalized before design or implementation.
 ---
 
-# Feature Intake
+# Feature to Brief
 
 Convert a rough feature request into a concise implementation-ready brief.
 
@@ -62,4 +62,3 @@ How the user will perceive the feature when it is complete.
 3. Keep open questions narrow and decision-oriented.
 4. If a missing detail does not materially affect scope, record an assumption instead of asking.
 5. Keep the brief short enough that later skills can consume it easily.
-

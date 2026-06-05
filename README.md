@@ -33,12 +33,12 @@ Manual project install paths:
 - `write-a-prd`: Create a PRD through user interviews, codebase exploration, and module design, then save it under `./prds/`.
 - `prd-to-plan`: Turn an existing PRD into a phased implementation plan using tracer-bullet vertical slices, written to `./plans/`.
 - `feature-owner`: Orchestrate a feature end-to-end, starting with a mandatory clarification interview, then require explicit approval before kickoff, technical planning, and implementation.
-- `feature-intake`: Normalize a rough feature request into a structured feature brief.
+- `feature-to-brief`: Normalize a rough feature request into a structured feature brief.
 - `design-brief-generator`: Turn a feature brief into a design review artifact with flows, states, and open questions.
 - `tech-spec-generator`: Turn an approved brief and design direction into a technical proposal with tradeoffs.
 - `implementation-planner`: Break an approved spec into reviewable implementation chunks.
-- `pr-executor`: Implement one planned chunk at a time and keep the diff narrow.
-- `review-guard`: Review a chunk for regressions, scope creep, and missing tests before it is considered complete.
+- `code-implementer`: Implement one planned chunk at a time and keep the diff narrow.
+- `code-reviewer`: Review a chunk for regressions, scope creep, and missing tests before it is considered complete.
 
 ## Feature Automation Flow
 
@@ -46,12 +46,12 @@ The feature automation skills are meant to be composed in this order:
 
 1. `grill-me`
 2. `feature-owner`
-3. `feature-intake`
+3. `feature-to-brief`
 4. `design-brief-generator`
 5. `tech-spec-generator`
 6. `implementation-planner`
-7. `pr-executor`
-8. `review-guard`
+7. `code-implementer`
+8. `code-reviewer`
 
 The intended operating model is:
 
@@ -71,12 +71,12 @@ If you want the whole workflow available in a target project, use the installer 
 
 - `grill-me`
 - `feature-owner`
-- `feature-intake`
+- `feature-to-brief`
 - `design-brief-generator`
 - `tech-spec-generator`
 - `implementation-planner`
-- `pr-executor`
-- `review-guard`
+- `code-implementer`
+- `code-reviewer`
 
 Equivalent direct command:
 
@@ -84,12 +84,12 @@ Equivalent direct command:
 npx skills@latest add nzepeda/skills \
   --skill grill-me \
   --skill feature-owner \
-  --skill feature-intake \
+  --skill feature-to-brief \
   --skill design-brief-generator \
   --skill tech-spec-generator \
   --skill implementation-planner \
-  --skill pr-executor \
-  --skill review-guard \
+  --skill code-implementer \
+  --skill code-reviewer \
   --agent codex \
   --yes
 ```

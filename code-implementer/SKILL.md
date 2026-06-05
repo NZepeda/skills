@@ -1,9 +1,9 @@
 ---
-name: pr-executor
+name: code-implementer
 description: Implement one planned chunk at a time, keeping the change set narrow, tested, and easy to review. Use when a feature plan already exists and the next reviewable chunk should be built.
 ---
 
-# PR Executor
+# Code Implementer
 
 Implement exactly one chunk from `plan.md`.
 
@@ -24,4 +24,3 @@ Implement exactly one chunk from `plan.md`.
 - Prefer existing patterns, naming, and structure.
 - Keep changes reviewable; if the diff is too broad, split the work.
 - Update `status.yaml` with the completed chunk and next step.
-

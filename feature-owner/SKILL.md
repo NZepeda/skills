@@ -33,7 +33,7 @@ Use available subagent or task facilities to keep stages independent and narrow.
 - Use an `explorer` task for repo discovery, prior art, and integration-point lookup.
 - Use a drafting task for `brief.md`, `design.md`, `tech-spec.md`, and `plan.md`.
 - Use one `worker` task per implementation chunk.
-- Use a review-focused task for a `review-guard` pass on each chunk.
+- Use a review-focused task for a `code-reviewer` pass on each chunk.
 
 For `tech-spec.md`, the drafting task must use three explicit perspectives: software architect, principal engineer, and product engineer. Those perspectives should challenge one another before the orchestrator accepts a recommendation.
 
@@ -88,15 +88,15 @@ When working from disk, prefer the exact schema in `references/status-schema.md`
 1. Begin in `clarifying-request` and use `grill-me` to interview the user until the feature behavior, constraints, and expected outcomes are clear.
 2. Summarize the shared understanding and ask for explicit approval that the summary is correct. Set state to `awaiting-shared-understanding-approval`.
 3. Only after explicit approval of the shared understanding, ask whether the user wants to start the workflow now. Set state to `awaiting-kickoff-approval`.
-4. Only after explicit kickoff approval, normalize the request with `feature-intake` and write `brief.md`.
+4. Only after explicit kickoff approval, normalize the request with `feature-to-brief` and write `brief.md`.
 5. Generate `design.md` with `design-brief-generator`.
 6. Pause and ask for explicit design approval or edits. Update state to `awaiting-design-approval`.
 7. Only after explicit design approval, generate `tech-spec.md` with `tech-spec-generator`.
 8. Pause and ask for explicit technical approval or edits. Update state to `awaiting-tech-approval`.
 9. Only after explicit technical approval, generate `plan.md` with `implementation-planner`.
 10. Pause and ask for explicit approval to begin implementation. Update state to `awaiting-implementation-approval`.
-11. Only after explicit implementation approval, implement one reviewable chunk at a time with `pr-executor`.
-12. Run `review-guard` on each chunk before considering it complete.
+11. Only after explicit implementation approval, implement one reviewable chunk at a time with `code-implementer`.
+12. Run `code-reviewer` on each chunk before considering it complete.
 13. Update `status.yaml` after every stage transition.
 
 ## Agent execution pattern
